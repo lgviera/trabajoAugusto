@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spaceship Maze</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="pacman.svg">
+</head>
+<body>
+    <p>Use las teclas WASD o las flechas para mover la nave.</p>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      version="1.1"
+      class="world"
+      tabindex="0">
+      <!-- Paredes del laberinto -->
+      <rect class="wall" x="0" y="0" width="20" height="20"></rect>
+      <rect class="wall" x="20" y="0" width="20" height="20"></rect>
+      <rect class="wall" x="40" y="0" width="20" height="20"></rect>
+      <rect class="wall" x="60" y="0" width="20" height="20"></rect>
+      <rect class="wall" x="80" y="0" width="20" height="20"></rect>
+      <rect class="wall" x="100" y="0" width="20" height="20"></rect>
+      <rect class="wall" x="120" y="0" width="20" height="20"></rect>
+      <rect class="wall" x="140" y="0" width="20" height="20"></rect>
+      <rect class="wall" x="160" y="0" width="20" height="20"></rect>
+      <rect class="wall" x="180" y="0" width="20" height="20"></rect>
+      <rect class="wall" x="200" y="0" width="20" height="20"></rect>
+      <rect class="wall" x="220" y="0" width="20" height="20"></rect>
+      <rect class="wall" x="240" y="0" width="20" height="20"></rect>
+      <rect class="wall" x="260" y="0" width="20" height="20"></rect>
+      <rect class="wall" x="280" y="0" width="20" height="20"></rect>
+      <rect class="wall" x="300" y="0" width="20" height="20"></rect>
+      <rect class="wall" x="320" y="0" width="20" height="20"></rect>
+      <rect class="wall" x="340" y="0" width="20" height="20"></rect>
+      <rect class="wall" x="360" y="0" width="20" height="20"></rect>
+      <rect class="wall" x="380" y="0" width="20" height="20"></rect>
+      <rect class="wall" x="0" y="20" width="20" height="20"></rect>
+      <rect class="wall" x="380" y="20" width="20" height="20"></rect>
+      <rect class="wall" x="0" y="40" width="20" height="20"></rect>
+      <rect class="wall" x="40" y="40" width="20" height="20"></rect>
+      <rect class="wall" x="60" y="40" width="20" height="20"></rect>
+      <rect class="wall" x="80" y="40" width="20" height="20"></rect>
+      <rect class="wall" x="100" y="40" width="20" height="20"></rect>
+      <rect class="wall" x="120" y="40" width="20" height="20"></rect>
+      <rect class="wall" x="140" y="40" width="20" height="20"></rect>
+      <rect class="wall" x="160" y="40" width="20" height="20"></rect>
+      <rect class="wall" x="180" y="40" width="20" height="20"></rect>
+      <rect class="wall" x="200" y="40" width="20" height="20"></rect>
+      <rect class="wall" x="220" y="40" width="20" height="20"></rect>
+      <rect class="wall" x="240" y="40" width="20" height="20"></rect>
+      <rect class="wall" x="260" y="40" width="20" height="20"></rect>
+      <rect class="wall" x="380" y="40" width="20" height="20"></rect>
+      <rect class="wall" x="0" y="60" width="20" height="20"></rect>
+      <rect class="wall" x="40" y="60" width="20" height="20"></rect>
+      <rect class="wall" x="260" y="60" width="20" height="20"></rect>
+      <rect class="wall" x="380" y="60" width="20" height="20"></rect>
+      <rect class="wall" x="0" y="80" width="20" height="20"></rect>
+      <rect class="wall" x="80" y="80" width="20" height="20"></rect>
+      <rect class="wall" x="100" y="80" width="20" height="20"></rect>
+      <rect class="wall" x="120" y="80" width="20" height="20"></rect>
+      <rect class="wall" x="140" y="80" width="20" height="20"></rect>
+      <rect class="wall" x="160" y="80" width="20" height="20"></rect>
+      <rect class="wall" x="180" y="80" width="20" height="20"></rect>
+      <rect class="wall" x="200" y="80" width="20" height="20"></rect>
+      <rect class="wall" x="220" y="80" width="20" height="20"></rect>
+      <rect class="wall" x="260" y="80" width="20" height="20"></rect>
+      <rect class="wall" x="380" y="80" width="20" height="20"></rect>
+      <rect class="wall" x="0" y="100" width="20" height="20"></rect>
+      <rect class="wall" x="20" y="100" width="20" height="20"></rect>
+      <rect class="wall" x="40" y="100" width="20" height="20"></rect>
+      <rect class="wall" x="60" y="100" width="20" height="20"></rect>
+      <rect class="wall" x="80" y="100" width="20" height="20"></rect>
+      <rect class="wall" x="260" y="100" width="20" height="20"></rect>
+      <rect class="wall" x="380" y="100" width="20" height="20"></rect>
+      <rect class="wall" x="0" y="120" width="20" height="20"></rect>
+      <rect class="wall" x="120" y="120" width="20" height="20"></rect>
+      <rect class="wall" x="140" y="120" width="20" height="20"></rect>
+      <rect class="wall" x="160" y="120" width="20" height="20"></rect>
+      <rect class="wall" x="180" y="120" width="20" height="20"></rect>
+      <rect class="wall" x="200" y="120" width="20" height="20"></rect>
+      <rect class="wall" x="220" y="120" width="20" height="20"></rect>
+      <rect class="wall" x="240" y="120" width="20" height="20"></rect>
+      <rect class="wall" x="260" y="120" width="20" height="20"></rect>
+      <rect class="wall" x="280" y="120" width="20" height="20"></rect>
+      <rect class="wall" x="300" y="120" width="20" height="20"></rect>
+      <rect class="wall" x="320" y="120" width="20" height="20"></rect>
+      <rect class="wall" x="340" y="120" width="20" height="20"></rect>
+      <rect class="wall" x="360" y="120" width="20" height="20"></rect>
+      <rect class="wall" x="380" y="120" width="20" height="20"></rect>
+      <rect class="wall" x="0" y="140" width="20" height="20"></rect>
+      <rect class="wall" x="40" y="140" width="20" height="20"></rect>
+      <rect class="wall" x="60" y="140" width="20" height="20"></rect>
+      <rect class="wall" x="80" y="140" width="20" height="20"></rect>
+      <rect class="wall" x="100" y="140" width="20" height="20"></rect>
+      <rect class="wall" x="120" y="140" width="20" height="20"></rect>
+      <rect class="wall" x="160" y="140" width="20" height="20"></rect>
+      <rect class="wall" x="200" y="140" width="20" height="20"></rect>
+      <rect class="wall" x="0" y="160" width="20" height="20"></rect>
+      <rect class="wall" x="160" y="160" width="20" height="20"></rect>
+      <rect class="wall" x="240" y="160" width="20" height="20"></rect>
+      <rect class="wall" x="260" y="160" width="20" height="20"></rect>
+      <rect class="wall" x="280" y="160" width="20" height="20"></rect>
+      <rect class="wall" x="300" y="160" width="20" height="20"></rect>
+      <rect class="wall" x="320" y="160" width="20" height="20"></rect>
+      <rect class="wall" x="340" y="160" width="20" height="20"></rect>
+      <rect class="wall" x="360" y="160" width="20" height="20"></rect>
+      <rect class="wall" x="0" y="180" width="20" height="20"></rect>
+      <rect class="wall" x="40" y="180" width="20" height="20"></rect>
+      <rect class="wall" x="60" y="180" width="20" height="20"></rect>
+      <rect class="wall" x="80" y="180" width="20" height="20"></rect>
+      <rect class="wall" x="100" y="180" width="20" height="20"></rect>
+      <rect class="wall" x="120" y="180" width="20" height="20"></rect>
+      <rect class="wall" x="140" y="180" width="20" height="20"></rect>
+      <rect class="wall" x="160" y="180" width="20" height="20"></rect>
+      <rect class="wall" x="200" y="180" width="20" height="20"></rect>
+      <rect class="wall" x="220" y="180" width="20" height="20"></rect>
+      <rect class="wall" x="240" y="180" width="20" height="20"></rect>
+      <rect class="wall" x="360" y="180" width="20" height="20"></rect>
+      <rect class="wall" x="0" y="200" width="20" height="20"></rect>
+      <rect class="wall" x="200" y="200" width="20" height="20"></rect>
+      <rect class="wall" x="360" y="200" width="20" height="20"></rect>
+      <rect class="wall" x="0" y="220" width="20" height="20"></rect>
+      <rect class="wall" x="20" y="220" width="20" height="20"></rect>
+      <rect class="wall" x="40" y="220" width="20" height="20"></rect>
+      <rect class="wall" x="60" y="220" width="20" height="20"></rect>
+      <rect class="wall" x="80" y="220" width="20" height="20"></rect>
+      <rect class="wall" x="100" y="220" width="20" height="20"></rect>
+      <rect class="wall" x="120" y="220" width="20" height="20"></rect>
+      <rect class="wall" x="140" y="220" width="20" height="20"></rect>
+      <rect class="wall" x="160" y="220" width="20" height="20"></rect>
+      <rect class="wall" x="180" y="220" width="20" height="20"></rect>
+      <rect class="wall" x="200" y="220" width="20" height="20"></rect>
+      <rect class="wall" x="360" y="220" width="20" height="20"></rect>
+      <rect class="wall" x="0" y="240" width="20" height="20"></rect>
+      <rect class="wall" x="360" y="240" width="20" height="20"></rect>
+      <rect class="wall" x="0" y="260" width="20" height="20"></rect>
+      <rect class="wall" x="360" y="260" width="20" height="20"></rect>
+      <rect class="wall" x="0" y="280" width="20" height="20"></rect>
+      <rect class="wall" x="360" y="280" width="20" height="20"></rect>
+      <rect class="wall" x="0" y="300" width="20" height="20"></rect>
+      <rect class="wall" x="360" y="300" width="20" height="20"></rect>
+      <rect class="wall" x="0" y="320" width="20" height="20"></rect>
+      <rect class="wall" x="300" y="320" width="20" height="20"></rect>
+      <rect class="wall" x="320" y="320" width="20" height="20"></rect>
+      <rect class="wall" x="360" y="320" width="20" height="20"></rect>
+      <rect class="wall" x="0" y="340" width="20" height="20"></rect>
+      <rect class="wall" x="300" y="340" width="20" height="20"></rect>
+      <rect class="goal" id="goalPosition" x="320" y="340" width="20" height="20"></rect>
+      <rect class="wall" x="360" y="340" width="20" height="20"></rect>
+      <rect class="wall" x="0" y="360" width="20" height="20"></rect>
+      <rect class="wall" x="300" y="360" width="20" height="20"></rect>
+      <rect class="wall" x="320" y="360" width="20" height="20"></rect>
+      <rect class="wall" x="340" y="360" width="20" height="20"></rect>
+      <rect class="wall" x="360" y="360" width="20" height="20"></rect>
+      <rect class="wall" x="0" y="380" width="20" height="20"></rect>
+      <rect class="wall" x="20" y="380" width="20" height="20"></rect>
+      <rect class="wall" x="40" y="380" width="20" height="20"></rect>
+      <rect class="wall" x="60" y="380" width="20" height="20"></rect>
+      <rect class="spaceship" id="spaceShipPosition" x="360" y="20" width="20" height="20"></rect>      
+      <!-- Nave espacial -->
+
+      <polygon id="spaceship" points="9,0 0,18 18,18" fill="orange" stroke="red" stroke-width="2"/>
+    </svg>
+      <script src="script.js" defer></script>
+</body>
+</html>

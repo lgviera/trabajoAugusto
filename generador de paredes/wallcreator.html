@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grid Editor</title>
+    <style>
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(20, 20px);
+            grid-template-rows: repeat(20, 20px);
+            gap: 1px;
+            background-color: #ddd;
+        }
+        .cell {
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border: 1px solid #ccc;
+        }
+        .cell.wall {
+            background-color: black;
+        }
+        .cell.spaceship {
+            background-color: red;
+        }
+        .cell.goal {
+            background-color: green;
+        }
+        #controls {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Grid Editor</h1>
+    <div class="grid" id="grid"></div>
+    <div id="controls">
+        <button id="generateCode">Generate Code</button>
+        <pre id="codeOutput"></pre>
+    </div>
+
+    <script>
+        const gridSize = 20;
+        const cellSize = 20;
+        const gridElement = document.getElementById('grid');
+        const codeOutput = document.getElementById('codeOutput');
+        let isDrawing = false;
+        let currentTool = 'wall';  // Herramienta actual: wall, goal, clear, moveSpaceship
+        let spaceshipPosition = { x: 0, y: 0 };
+
+        function createGrid() {
+            for (let i = 0; i < gridSize * gridSize; i++) {
+                const cell = document.createElement('div');
+                cell.className = 'cell';
+                cell.addEventListener('mousedown', () => {
+                    isDrawing = true;
+                    draw(cell);
+                });
+                cell.addEventListener('mouseup', () => isDrawing = false);
+                cell.addEventListener('mouseover', () => {
+                    if (isDrawing) {
+                        draw(cell);
+                    }
+                });
+                gridElement.appendChild(cell);
+            }
+            setSpaceship(0, 0);  // Establecer la posición inicial de la nave
+        }
+
+        function draw(cell) {
+            if (cell === document.querySelector('.cell.spaceship') && currentTool !== 'moveSpaceship') {
+                // No cambiar la celda de la nave espacial, excepto si la herramienta actual es mover nave espacial
+                return;
+            }
+
+            if (currentTool === 'moveSpaceship') {
+                // Mover la nave espacial
+                const index = Array.from(gridElement.children).indexOf(cell);
+                const x = index % gridSize;
+                const y = Math.floor(index / gridSize);
+                setSpaceship(x, y);
+            } else if (currentTool === 'clear') {
+                // Borrar contenido
+                cell.classList.remove('wall', 'goal', 'spaceship');
+                cell.removeAttribute('id');
+            } else {
+                cell.classList.remove('wall', 'goal');
+                cell.removeAttribute('id');  // Eliminar cualquier ID anterior
+                if (currentTool === 'wall') {
+                    cell.classList.add('wall');
+                } else if (currentTool === 'goal') {
+                    cell.classList.add('goal');
+                    cell.id = "goalPosition";  // Asignar ID a la celda de meta
+                }
+            }
+        }
+
+        function setSpaceship(x, y) {
+            // Limpiar la celda anterior de la nave espacial
+            const prevSpaceship = document.querySelector('.cell.spaceship');
+            if (prevSpaceship) {
+                prevSpaceship.classList.remove('spaceship');
+                prevSpaceship.removeAttribute('id');  // Eliminar el ID anterior
+            }
+
+            // Establecer la nueva posición de la nave espacial
+            spaceshipPosition = { x, y };
+            const index = x + y * gridSize;
+            const cell = gridElement.children[index];
+            cell.classList.add('spaceship');
+            cell.id = "spaceShipPosition";  // Asignar ID a la celda de la nave espacial
+        }
+
+        function generateCode() {
+            const cells = document.querySelectorAll('.cell');
+            let code = '';
+            cells.forEach((cell, index) => {
+                if (cell.classList.contains('wall')) {
+                    const x = index % gridSize;
+                    const y = Math.floor(index / gridSize);
+                    code += `<rect class="wall" x="${x * cellSize}" y="${y * cellSize}" width="${cellSize}" height="${cellSize}"></rect>\n`;
+                } else if (cell.classList.contains('goal')) {
+                    const x = index % gridSize;
+                    const y = Math.floor(index / gridSize);
+                    code += `<rect class="goal" id="goalPosition" x="${x * cellSize}" y="${y * cellSize}" width="${cellSize}" height="${cellSize}"></rect>\n`;
+                }
+            });
+
+            // Añadir la nave espacial con ID
+            code += `<rect class="spaceship" id="spaceShipPosition" x="${spaceshipPosition.x * cellSize}" y="${spaceshipPosition.y * cellSize}" width="${cellSize}" height="${cellSize}"></rect>\n`;
+
+            codeOutput.textContent = code;
+        }
+
+        createGrid();
+
+        document.getElementById('generateCode').addEventListener('click', generateCode);
+
+        document.addEventListener('keydown', (event) => {
+            switch (event.code) {
+                case 'Digit1':
+                    currentTool = 'wall';
+                    break;
+                case 'Digit2':
+                    currentTool = 'goal';
+                    break;
+                case 'Digit3':
+                    currentTool = 'moveSpaceship';
+                    break;
+                case 'Digit4':
+                    currentTool = 'clear';
+                    break;
+            }
+        });
+    </script>
+</body>
+</html>
