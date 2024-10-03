@@ -8,7 +8,11 @@ let position = {
     y: 100   // Posición inicial y
 };
 
+<<<<<<< HEAD
 let moveRate = 20;  // Velocidad de movimiento
+=======
+let moveRate = 2;  // Velocidad de movimiento (ajustar según lo desees)
+>>>>>>> 5b78b27214200adcb3d78755aec3fcec436a5dd7
 let velocity = { x: 0, y: 0 }; // Almacena la velocidad en los ejes X e Y
 
 let spaceship = document.getElementById("spaceship");
@@ -71,6 +75,15 @@ function initialize() {
 
 initialize();
 
+<<<<<<< HEAD
+=======
+function gameLoop() {
+    updatePosition(); // Actualiza la posición de la nave
+    refresh(); // Actualiza la visualización
+    requestAnimationFrame(gameLoop); // Llama al siguiente frame
+}
+
+>>>>>>> 5b78b27214200adcb3d78755aec3fcec436a5dd7
 // Control de teclas
 window.addEventListener("keydown", (event) => {
     if (event.defaultPrevented) return; // No hacer nada si el evento ya fue manejado
@@ -97,8 +110,8 @@ window.addEventListener("keydown", (event) => {
     if (event.code !== "Tab") {
         event.preventDefault(); // Prevenir el comportamiento por defecto
     }
-
-    updatePosition(); // Llama a la función para actualizar la posición de inmediato
+<<<<<<< HEAD
+=======
 });
 
 // Para detener el movimiento al soltar la tecla
@@ -118,3 +131,34 @@ window.addEventListener("keyup", (event) => {
             break;
     }
 });
+
+<<<<<<< HEAD
+// Iniciar el bucle de juego
+gameLoop();
+=======
+>>>>>>> 5b78b27214200adcb3d78755aec3fcec436a5dd7
+
+    updatePosition(); // Llama a la función para actualizar la posición de inmediato
+});
+
+<<<<<<< HEAD
+// Para detener el movimiento al soltar la tecla
+window.addEventListener("keyup", (event) => {
+    switch (event.code) {
+        case "KeyW":
+        case "ArrowUp":
+        case "KeyS":
+        case "ArrowDown":
+            velocity.y = 0; // Detener el movimiento vertical
+            break;
+        case "KeyA":
+        case "ArrowLeft":
+        case "KeyD":
+        case "ArrowRight":
+            velocity.x = 0; // Detener el movimiento horizontal
+            break;
+    }
+});
+=======
+>>>>>>> 29a3d19691d4e54b7727470995293be317648644
+>>>>>>> 5b78b27214200adcb3d78755aec3fcec436a5dd7
