@@ -1,21 +1,18 @@
 let shipSize = {
-    width: 18,  // Tamaño actualizado
-    height: 18, // Tamaño actualizado
+    width: 20,  // Tamaño de la nave (ancho)
+    height: 20, // Tamaño de la nave (alto)
 };
 
 let position = {
-    x: 0,  // Posición inicial x
-    y: 0   // Posición inicial y
+    x: 100,  // Posición inicial x
+    y: 100   // Posición inicial y
 };
 
-let moveRate = 20;  // Movimiento en una celda
-let angle = 0;      // Ángulo inicial (mirando hacia el norte: 0°)
+let moveRate = 2;  // Velocidad de movimiento (ajustar según lo desees)
+let velocity = { x: 0, y: 0 }; // Almacena la velocidad en los ejes X e Y
 
 let spaceship = document.getElementById("spaceship");
-let walls = document.querySelectorAll('.wall');
-let goal = document.querySelectorAll('goalPosition');
-
-// Asegúrate de que 'spaceship' y 'walls' están bien definidos y cargados antes de la primera llamada a 'refresh'
+let walls = document.querySelectorAll('.wall'); // Asegúrate de que las paredes estén definidas en tu HTML
 
 function checkCollision(x, y) {
     let shipBox = {
@@ -33,7 +30,6 @@ function checkCollision(x, y) {
     // Chequea colisiones con las paredes del laberinto
     for (let wall of walls) {
         let wallBox = wall.getBBox();
-
         if (
             shipBox.right > wallBox.x &&
             shipBox.left < wallBox.x + wallBox.width &&
@@ -43,15 +39,12 @@ function checkCollision(x, y) {
             return true; // Colisión con una pared
         }
     }
-
     return false; // No hay colisión
 }
 
-
-function updatePosition(offset) {
-    let rad = angle * (Math.PI / 180);
-    let newX = position.x + Math.sin(rad) * offset;
-    let newY = position.y - Math.cos(rad) * offset;
+function updatePosition() {
+    let newX = position.x + velocity.x;
+    let newY = position.y + velocity.y;
 
     // Solo actualizar si no hay colisión con el mapa o paredes
     if (!checkCollision(newX, newY)) {
@@ -61,66 +54,72 @@ function updatePosition(offset) {
 }
 
 function refresh() {
-    // Posición del triángulo en el SVG (ajustada para el centro del triángulo)
-    let x = position.x;
-    let y = position.y;
-    let transform = `translate(${x} ${y}) rotate(${angle} ${shipSize.width / 2} ${shipSize.height / 2})`;
-
-    if (spaceship) {  // Asegúrate de que 'spaceship' está definido
-        spaceship.setAttribute("transform", transform);
-    }
+    spaceship.setAttribute("cx", position.x + shipSize.width / 2); // Ajustar el centro del círculo
+    spaceship.setAttribute("cy", position.y + shipSize.height / 2); // Ajustar el centro del círculo
 }
 
 function initialize() {
     // Configura la posición inicial de la nave
     position = {
-        x: 100,  // Por ejemplo, posición x inicial
-        y: 100   // Por ejemplo, posición y inicial
+        x: 100,
+        y: 100
     };
     refresh();  // Inicializa la nave en la posición correcta
 }
 
 initialize();
 
-window.addEventListener(
-    "keydown",
-    (event) => {
-        if (event.defaultPrevented) {
-            return; // No hacer nada si el evento ya fue manejado
-        }
+function gameLoop() {
+    updatePosition(); // Actualiza la posición de la nave
+    refresh(); // Actualiza la visualización
+    requestAnimationFrame(gameLoop); // Llama al siguiente frame
+}
 
-        switch (event.code) {
-            case "KeyS":
-            case "ArrowDown":
-                // Mover hacia atrás
-                updatePosition(-moveRate);
-                break;
-            case "KeyW":
-            case "ArrowUp":
-                // Mover hacia adelante
-                updatePosition(moveRate);
-                break;
-            case "KeyA":
-            case "ArrowLeft":
-                // Girar 90° a la izquierda
-                angle = (angle - 90 + 360) % 360;
-                break;
-            case "KeyD":
-            case "ArrowRight":
-                // Girar 90° a la derecha
-                angle = (angle + 90) % 360;
-                break;
-        }
+// Control de teclas
+window.addEventListener("keydown", (event) => {
+    if (event.defaultPrevented) return; // No hacer nada si el evento ya fue manejado
 
-        refresh();
+    switch (event.code) {
+        case "KeyW":
+        case "ArrowUp":
+            velocity.y = -moveRate; // Mover hacia arriba
+            break;
+        case "KeyS":
+        case "ArrowDown":
+            velocity.y = moveRate; // Mover hacia abajo
+            break;
+        case "KeyA":
+        case "ArrowLeft":
+            velocity.x = -moveRate; // Mover hacia la izquierda
+            break;
+        case "KeyD":
+        case "ArrowRight":
+            velocity.x = moveRate; // Mover hacia la derecha
+            break;
+    }
 
-        if (event.code !== "Tab") {
-            event.preventDefault(); // Prevenir el comportamiento por defecto
-        }
-    },
-    true,
-);
+    if (event.code !== "Tab") {
+        event.preventDefault(); // Prevenir el comportamiento por defecto
+    }
+});
 
+// Para detener el movimiento al soltar la tecla
+window.addEventListener("keyup", (event) => {
+    switch (event.code) {
+        case "KeyW":
+        case "ArrowUp":
+        case "KeyS":
+        case "ArrowDown":
+            velocity.y = 0; // Detener el movimiento vertical
+            break;
+        case "KeyA":
+        case "ArrowLeft":
+        case "KeyD":
+        case "ArrowRight":
+            velocity.x = 0; // Detener el movimiento horizontal
+            break;
+    }
+});
 
-
-
+// Iniciar el bucle de juego
+gameLoop();

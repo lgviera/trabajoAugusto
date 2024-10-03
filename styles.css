@@ -10,8 +10,6 @@
 }
 #spaceship {
     fill: orange;
-    stroke: red;
-    stroke-width: 1px;
 }
 .wall {
     fill: royalblue;
@@ -19,4 +17,3 @@
 .group0{
     fill: yellow;
 }
-    
