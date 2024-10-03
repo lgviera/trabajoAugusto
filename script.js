@@ -8,7 +8,7 @@ let position = {
     y: 100   // Posición inicial y
 };
 
-let moveRate = 2;  // Velocidad de movimiento (ajustar según lo desees)
+let moveRate = 20;  // Velocidad de movimiento
 let velocity = { x: 0, y: 0 }; // Almacena la velocidad en los ejes X e Y
 
 let spaceship = document.getElementById("spaceship");
@@ -51,6 +51,8 @@ function updatePosition() {
         position.x = newX;
         position.y = newY;
     }
+
+    refresh(); // Actualiza la visualización de la nave
 }
 
 function refresh() {
@@ -68,12 +70,6 @@ function initialize() {
 }
 
 initialize();
-
-function gameLoop() {
-    updatePosition(); // Actualiza la posición de la nave
-    refresh(); // Actualiza la visualización
-    requestAnimationFrame(gameLoop); // Llama al siguiente frame
-}
 
 // Control de teclas
 window.addEventListener("keydown", (event) => {
@@ -101,6 +97,8 @@ window.addEventListener("keydown", (event) => {
     if (event.code !== "Tab") {
         event.preventDefault(); // Prevenir el comportamiento por defecto
     }
+
+    updatePosition(); // Llama a la función para actualizar la posición de inmediato
 });
 
 // Para detener el movimiento al soltar la tecla
@@ -120,6 +118,3 @@ window.addEventListener("keyup", (event) => {
             break;
     }
 });
-
-// Iniciar el bucle de juego
-gameLoop();
